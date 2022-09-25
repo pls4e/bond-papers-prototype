@@ -1,0 +1,50 @@
+@tailwind base;
+
+h1 {
+  @apply text-2xl;
+}
+h2 {
+  @apply text-xl;
+}
+h3 {
+  @apply text-lg;
+}
+a {
+  @apply text-rose-800;
+}
+
+@tailwind components;
+@tailwind utilities;
+
+p { padding-top:1em;}
+
+img.thumb {
+  aspect-ratio: 1/1;
+  max-width:3rem;
+}
+.people-gallery {
+  padding:2rem;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  max-width:50rem;
+  gap:1rem;
+  margin-inline:auto;
+
+}
+
+.people-gallery li {
+  padding:3rem;
+  transition: scale 350ms ease, opacity 350ms linear;
+
+}
+
+.people-gallery:has(li:hover) li:not(:hover) {
+  scale: .8;
+  opacity: .7;
+}
+
+.boxShadow {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+ol li {padding:.5em 1em; font-size:smaller; font-weight:200;}
