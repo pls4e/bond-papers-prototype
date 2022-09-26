@@ -8,6 +8,7 @@ import {
   Snippet,
   PoweredBy,
 } from "react-instantsearch-dom"
+import "./search.css"
 
 const HitCount = connectStateResults(({ searchResults }) => {
   const hitCount = searchResults && searchResults.nbHits

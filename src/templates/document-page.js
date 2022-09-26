@@ -22,10 +22,14 @@ const DocPage = ({ data }) => {
                
                <div className="py-6 pr-6 font-light leading-relaxed">
                {doc.field_summary != null ? <div dangerouslySetInnerHTML={{__html: `Summary:` + doc.field_summary.value}} className="p-4 italic text-sm bg-stone-50"/> : ""}
-               {doc.field_document_top != null ? <div dangerouslySetInnerHTML={{__html: doc.field_document_top.value}} className="italic bg-stone-50 p-2"/> : ""}
-              {doc.field_document_salutation != null ? <div><span>Document Salutation</span><div dangerouslySetInnerHTML={{__html: doc.field_document_salutation.value}}/></div> : ""}
+               {doc.field_document_top != null ? <div dangerouslySetInnerHTML={{__html: `Document Top:` + doc.field_document_top.value}} className="italic bg-stone-50 p-4 text-sm mt-2 "/> : ""}
+               {doc.field_head != null ? <div dangerouslySetInnerHTML={{__html: `Document Head:` +doc.field_head.value}} className="italic bg-stone-50 p-4 text-sm mt-2"/> : ""}
 
-              {doc.field_document_body != null ?  <div dangerouslySetInnerHTML={{ __html: doc.field_document_body.value }} className="text-base py-4"/>: <div className="italic py-4">No value of field "document body"</div>}</div>
+              {doc.field_salutation != null ? <div dangerouslySetInnerHTML={{__html: doc.field_salutation.value}}/> : ""}
+
+              {doc.field_document_body != null ?  <div dangerouslySetInnerHTML={{ __html: doc.field_document_body.value }} className="text-base"/>: <div className="italic py-4">No value of field "document body"</div>}</div>
+              {doc.field_signature != null ? <div dangerouslySetInnerHTML={{__html: doc.field_signature.value}} className="text-base font-light"/> : ""}
+
               {doc.field_document_extra != null ? <div><span>Document Extra</span><div dangerouslySetInnerHTML={{__html: doc.field_document_extra.value}}/></div> : ""}
               {doc.field_document_marginalia != null ? <div><span>Document marginalia</span><div dangerouslySetInnerHTML={{__html: doc.field_document_marginalia.value}}/></div> : ""}
               
@@ -38,8 +42,6 @@ const DocPage = ({ data }) => {
                 </>
                 :
                  ''}
-
-
 </div>
               <div>
 
@@ -127,6 +129,9 @@ export const query = graphql`
       value
     }
     field_salutation {
+      value
+    }
+    field_signature {
       value
     }
     field_marginalia {

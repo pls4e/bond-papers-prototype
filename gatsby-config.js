@@ -10,7 +10,7 @@ module.exports = {
     author: `@pls4e`,
   },
   flags: {
-    PARALLEL_SOURCING: true, FAST_DEV: true , DEV_SSR: false
+    PARALLEL_SOURCING: true, FAST_DEV: true , DEV_SSR: true
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

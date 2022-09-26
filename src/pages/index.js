@@ -47,8 +47,8 @@ const IndexPage = () => (
       </div>
     </div>
     <div className="h-64">
-    <h1 className="text-5xl py-4 text-rose-800 font-bold leading-tight tracking-wide text-center">Celebrating the Works & <br/>Writings of a Civil Rights Icon</h1>
-    <p className="text-center text-lg text-zinc-500 tracking-wider ">By providing a freely available resource of digitized images, transcriptions, and annotations.
+    <h1 className="text-5xl py-4 text-rose-800 leading-tight tracking-wide font-light text-center">Celebrating the Works & <br/>Writings of a Civil Rights Icon</h1>
+    <p className="text-center text-md text-zinc-500 tracking-widest ">By providing a freely available resource of digitized images, transcriptions, and annotations.
 
 </p>
     </div>
