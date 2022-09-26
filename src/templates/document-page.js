@@ -22,7 +22,7 @@ const DocPage = ({ data }) => {
                
                <div className="py-6 pr-6 font-light leading-relaxed">
                {doc.field_summary != null ? <div dangerouslySetInnerHTML={{__html: `Summary:` + doc.field_summary.value}} className="p-4 italic text-sm bg-stone-50"/> : ""}
-               {doc.field_document_top != null ? <div dangerouslySetInnerHTML={{__html: doc.field_document_top.value}} className="italic  bg-stone-50 p-2"/> : ""}
+               {doc.field_document_top != null ? <div dangerouslySetInnerHTML={{__html: doc.field_document_top.value}} className="italic bg-stone-50 p-2"/> : ""}
               {doc.field_document_salutation != null ? <div><span>Document Salutation</span><div dangerouslySetInnerHTML={{__html: doc.field_document_salutation.value}}/></div> : ""}
 
               {doc.field_document_body != null ?  <div dangerouslySetInnerHTML={{ __html: doc.field_document_body.value }} className="text-base py-4"/>: <div className="italic py-4">No value of field "document body"</div>}</div>
@@ -37,14 +37,7 @@ const DocPage = ({ data }) => {
                   <div dangerouslySetInnerHTML={{ __html: doc.field_footnote[0].value }} />
                 </>
                 :
-                doc.field_footnote.length != null && doc.field_footnote.length >= 2 ?
-
-                  doc.field_footnote.map((footnote, key) => (
-                    <>
-                  <span>Footnotes:</span>
-                    <div dangerouslySetInnerHTML={{ __html: footnote.field_footnote.value }} key={key}/>
-</>
-                  )): ''}
+                 ''}
 
 
 </div>
