@@ -1,9 +1,15 @@
-import { Link } from "gatsby"
+import { Link} from "gatsby"
 import PropTypes from "prop-types"
 import React, { useState } from "react"
 import { StaticImage } from "gatsby-plugin-image"
+import HeaderLink from "./HeaderLink"
 
 function Header({ siteTitle }) {
+  /* const data = useStaticQuery(graphql`
+  query {
+     
+  }
+  `); */
   const [isExpanded, toggleExpansion] = useState(false)
 
   return (
@@ -42,39 +48,14 @@ function Header({ siteTitle }) {
         } w-full block flex-grow lg:flex lg:items-center lg:w-auto`}
       >
         <div className="text-sm lg:flex-grow">
-        <Link
-            to={`/pages/479`}
-            className="block font-thin mt-4 mr-4 text-white lg:inline-block lg:mt-0 hover:text-white" 
-          >
-            The Project
-          </Link>
-          <Link
-            to={`/allDocuments`}
-            className="block mt-4 mr-4 font-thin text-white lg:inline-block lg:mt-0 hover:text-white"
-          >
-            Documents
-          </Link>
-          <Link
-            to={`/allPeople`}
-            className="block mt-4 mr-4 font-thin text-white lg:inline-block lg:mt-0 hover:text-white"
-          >
-            People
-          </Link>
-          <Link
-            to={`/pages/481`}
-            className="block font-thin mt-4 mr-4 text-white lg:inline-block lg:mt-0 hover:text-white" 
-          >
-            Editorial Method
-          </Link>
-          <Link
-            to={`/doc-search`}
-            className="block mt-4 mr-4 font-thin text-white lg:inline-block lg:mt-0 hover:text-white"
-          >
-            Search
-          </Link>
+          <HeaderLink path={`/pages/479`} content={'the project'}/>
+          <HeaderLink path={`/allDocuments`} content={'documents'}/>
+          <HeaderLink path={`/allPeople`} content={'people'}/>
+          <HeaderLink path={`/pages/481`} content={'editorial method'}/>
+          <HeaderLink path={`/doc-search`} content={'search'}/>
           <Link
             to={`#`}
-            className="block mt-4 mr-4 text-white lg:inline-block lg:mt-0 hover:text-white"
+            className="bblock font-bold tracking-widest uppercase text-xs mt-4 mr-5 text-white lg:inline-block lg:mt-0 hover:text-gray-300"
           >
             Donate
           </Link>

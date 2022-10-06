@@ -3,9 +3,9 @@ import React from "react"
 const MetadataBox = ({label, value, field}) => {
      
         return (
-           <div>
+           <div className="first:mt-0 last:mb-0">
 
-            {field ? <div className="metadata p-6 mt-6 bg-stone-50 flex flex-col font-light place-items-center ">{label}:  <span>{value}</span>  </div>: 'null' }
+            {field ? <div className="metadata p-6 shadow-sm rounded-lg bg-stone-50 flex flex-col font-light place-items-center ">{label}:  <span>{value}</span>  </div>: 'null' }
             </div>
         
         )}

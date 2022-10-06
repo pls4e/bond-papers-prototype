@@ -19,6 +19,8 @@ module.exports = {
       options: {
         baseUrl: 'https://dev.bondpapersproject.org/',
         apiBase: `jsonapi`,
+        skipFileDownloads: true,
+        imageCDN: false, /*skips gatsby's image cdn service*/
         basicAuth: {
           username: process.env.DRUPAL_BASIC_AUTH_USERNAME,
           password: process.env.DRUPAL_BASIC_AUTH_PASSWORD,

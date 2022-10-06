@@ -2,6 +2,7 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import MetadataBox from "../components/MetadataBox"
+import Body from "../components/field/Body"
 
 const DocPage = ({ data }) => {
   const doc = data.nodeDocuments
@@ -10,80 +11,62 @@ const DocPage = ({ data }) => {
   const peeps = data.nodeDocuments.relationships.field_all_people
   return (
     <Layout>
-      <div>
-        <h1 className="md:text-4xl border-bottom border-gray-50">{ doc.title }</h1>
-       
-        <div className="mx-auto md:grid md:grid-cols-3 pt-6">
-            <div id="textBox" className="col-span-2">
-               {/*  <div className="flex flex-row gap-4">
+      <div className="float-right"> <Link to={'/allDocuments'}>Back to list</Link></div>
+       <h1 className="md:text-4xl border-bottom border-gray-50 font-display tracking-wide">{ doc.title }</h1>
+       <section className="italic py-4 text-sm border-b-2 border-t-gray-400">
+       {doc.field_document_top != null ? <div dangerouslySetInnerHTML={{__html: doc.field_document_top.value}} className="tracking-wide"/> : ""}
+        {doc.field_head != null ? <div dangerouslySetInnerHTML={{__html: doc.field_head.value}} className="tracking-wide"/> : ""}
+       </section>
+      <div className="mx-auto md:grid md:grid-cols-3 pt-2">
+         {/*  <div className="flex flex-row gap-4">
                     <button className="p-4">Image</button>
                     <button className="p-4">Transcription</button>
                 </div> */}
-               
-               <div className="py-6 pr-6 font-light leading-relaxed">
-               {doc.field_summary != null ? <div dangerouslySetInnerHTML={{__html: `Summary:` + doc.field_summary.value}} className="p-4 italic text-sm bg-stone-50"/> : ""}
-               {doc.field_document_top != null ? <div dangerouslySetInnerHTML={{__html: `Document Top:` + doc.field_document_top.value}} className="italic bg-stone-50 p-4 text-sm mt-2 "/> : ""}
-               {doc.field_head != null ? <div dangerouslySetInnerHTML={{__html: `Document Head:` +doc.field_head.value}} className="italic bg-stone-50 p-4 text-sm mt-2"/> : ""}
-
-              {doc.field_salutation != null ? <div dangerouslySetInnerHTML={{__html: doc.field_salutation.value}}/> : ""}
-
-              {doc.field_document_body != null ?  <div dangerouslySetInnerHTML={{ __html: doc.field_document_body.value }} className="text-base"/>: <div className="italic py-4">No value of field "document body"</div>}</div>
+        <article className="col-span-2 min-w-full">
+   
+              <div dangerouslySetInnerHTML={{__html: doc.field_salutation?.value}}/>
+                {doc.field_document_body ? <div className="pb-4 text-base font-normal tracking-wide text-stone-600"><Body content={doc.field_document_body?.value}/></div> : ""}
               {doc.field_signature != null ? <div dangerouslySetInnerHTML={{__html: doc.field_signature.value}} className="text-base font-light"/> : ""}
 
-              {doc.field_document_extra != null ? <div><span>Document Extra</span><div dangerouslySetInnerHTML={{__html: doc.field_document_extra.value}}/></div> : ""}
+        <section>
+        {doc.field_document_extra != null ? <div><span>Document Extra</span><div dangerouslySetInnerHTML={{__html: doc.field_document_extra.value}}/></div> : ""}
               {doc.field_document_marginalia != null ? <div><span>Document marginalia</span><div dangerouslySetInnerHTML={{__html: doc.field_document_marginalia.value}}/></div> : ""}
-              
-            
-               
-              {doc.field_footnote.length != null && doc.field_footnote.length === 1 ?
-                <>
-                <span>Footnotes:</span>
-                  <div dangerouslySetInnerHTML={{ __html: doc.field_footnote[0].value }} />
-                </>
-                :
-                 ''}
-</div>
-              <div>
+        </section>
+        
+        {/* Footnotes: need resolver to process the links to footnotes from body */}
+                  {doc.field_footnote.length ? <section className="mt-4 border-t-2 border-gray-500 bg-stone-50"><span>Footnotes:</span>
+                {doc.field_footnote?.map((footnote => (
+                  <div dangerouslySetInnerHTML={{ __html: footnote.value }} />
+                )))}</section> : ""}
+          
+          
+        </article>
 
-                {images ? <div className="flex flex-row gap-2 flex-wrap py-6 "> {images.map((image, key) => (
+        <aside className="p-4 divide-y">   
+    
+        <section>{doc.field_summary != null ? <div className="metadata p-6 mt-6 shadow-sm rounded-lg bg-stone-50 flex flex-col font-light place-items-center"><span>Summary:</span><div dangerouslySetInnerHTML={{__html: doc.field_summary.value}}/></div> : ""} </section>  
+       <section>{images.length ? <div className="p-6 shadow-sm rounded-lg metadata flex flex-col place-items-center bg-stone-50"><span>Images:</span><div className="flex flex-row gap-2 flex-wrap py-4 "> {images.map((image, key) => (
                   <a href={image.uri} target="_blank" rel="noreferrer"><img src={image.uri} className="thumb" alt="facsimile" /></a>
 
-                ))} </div> : ''}
-
-                <div className="metadata p-6  bg-zinc-50 flex flex-col font-light place-items-center">
-                  <span>Author:</span>
-                  {authors.length != null && authors.length === 1 ?
-                    <Link to={`../../people/${authors[0].drupal_internal__nid}`}>{authors[0].title}</Link>
-                    :
-                    authors.length != null && authors.length >= 2 ?
-                      authors.map((auth, key) => (
-                        <Link to={`../../people/${auth.drupal_internal__nid}`}>{auth.title}</Link>
-                      )
-
-                      ) :
-                      "No author specified"}
-                </div>
-                {doc.field_date != null ? <MetadataBox label="Date" value={doc.field_date.value} field={doc.field_date} /> : ''}
-                {doc.relationships.field_object_type != null ? <MetadataBox label="Type" value={doc.relationships.field_object_type.name} field={doc.relationships.field_object_type} /> : ''}
-                {doc.relationships.field_source != null ? <MetadataBox label="Source" value={doc.relationships.field_source.name} field={doc.relationships.field_source} /> : ''}
-
-                <div className="metadata p-6 mt-6 bg-zinc-50 flex flex-col font-light place-items-center">
-                  <span>Related People:</span>
-                  {peeps.length != null && peeps.length === 1 ?
-                    <Link to={`../../people/${peeps[0].drupal_internal__nid}`}>{peeps[0].title}</Link>
-                    :
-                    peeps.length != null && peeps.length >= 2 ?
-                      peeps.map((peep, key) => (
-                        <Link to={`../../people/${peep.drupal_internal__nid}`}>{peep.title}</Link>
-                      )
-
-                      ) :
-                      "No related people specified"}
-                </div>
-              </div>
-            </div>
+                ))} </div></div> : ''}</section> 
+        
+             <section>{authors.length ? <MetadataBox label="Author" field={authors} value={authors?.map((auth => (
+                    <Link to={`../../people/${auth.drupal_internal__nid}`}>{auth.title}</Link>
+                  )
+                  ))}/> : ""}</section>
+             
+              <section>{doc.field_date != null ? <MetadataBox label="Date" value={doc.field_date.value} field={doc.field_date} /> : ''}</section>   
+            <section>{doc.relationships.field_object_type != null ? <MetadataBox label="Type" value={doc.relationships.field_object_type.name} field={doc.relationships.field_object_type} /> : ''}</section> 
+            <section>{doc.relationships.field_source != null ? <MetadataBox label="Source" value={doc.relationships.field_source.name} field={doc.relationships.field_source} /> : ''}</section> 
+            {peeps.length ? <MetadataBox label="Related People" field={peeps} value={ <section><ul className="flex flex-col place-items-center">{peeps?.map((peep => (
+                    
+                    <li><Link to={`../../people/${peep.drupal_internal__nid}`}>{peep.title}</Link></li>
+                  )
+                  ))}</ul></section>}/>  : ""}   
+        </aside>
+        </div>
             <Link to={'/allDocuments'}>Back to list</Link>
-      </div>
+    
     </Layout>
   )
 }

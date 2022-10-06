@@ -1,9 +1,14 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
+import {AiFillMail} from "react-icons/ai"
+import {AiFillNotification} from "react-icons/ai"
+import {AiFillFolderOpen} from "react-icons/ai"
+import {BsPeopleFill} from "react-icons/bs"
+import {MdArticle} from "react-icons/md"
+import DocTeaser from "../components/DocTeaser"
 
 export default function Docs({ data }) {
-    // const allDocs = data.allNodeDocuments
     const speeches = data.speechz
     const articles = data.artz
     const essays = data.essayz
@@ -14,24 +19,22 @@ export default function Docs({ data }) {
  return (
     
         <Layout>
-          <h1 id="top">Browse All Documents</h1>
+          
+          <h4 id="top" className="font-display tracking-wide">Browse All Documents</h4>
    
-   <section className="flex flex-row gap-2 py-6">
-    <button className="bg-zinc-50 p-6"><a href="#speeches">Speeches</a></button>
-   <button className="bg-zinc-50 p-6"><a href="#essays">Essays</a></button>
-   <button className="bg-zinc-50 p-6"><a href="#articles">Articles</a></button>
-   <button className="bg-zinc-50 p-6"><a href="#interviews">Interviews</a></button>
-   <button className="bg-zinc-50 p-6"><a href="#reports">Reports</a></button>
-   <button className="bg-zinc-50 p-6"><a href="#letters">Letters</a></button>
+   <section className="flex md:flex-row justify-between py-6 md-py-6">
+  <button className="rounded-lg flex flex-col px-6 py-4 gap-2"><AiFillNotification className="mx-auto text-red-900"/><a href="#speeches" className="text-gray-800 font-display ">Speeches</a></button>
+  <button className="rounded-lg flex flex-col px-6 py-4 gap-2"><MdArticle className="mx-auto text-red-900"/><a href="#articles" className="text-gray-800 font-display ">Articles</a></button>
+  <button className="rounded-lg flex flex-col px-6 py-4 gap-2"><BsPeopleFill className="mx-auto text-red-900"/><a href="#interviews" className="text-gray-800 font-display ">Interviews</a></button>
+  <button className="rounded-lg flex flex-col px-6 py-4 gap-2"><AiFillFolderOpen className="mx-auto text-red-900"/><a href="#reports" className="text-gray-800 font-display ">Reports</a></button>
+  <button className="rounded-lg flex flex-col px-6 py-4 gap-2"><AiFillMail className="mx-auto text-red-900"/><a href="#letters" className="text-gray-800 font-display ">Letters</a></button>
+
    </section>
    <section id="speeches" className="py-8">
-   <h3>Speeches</h3>
+   <h5>Speeches</h5>
               <ul>
             {speeches.edges.map(edge => (
-           <li className="py-2"> 
-              <Link key={edge.node.drupal_internal__nid} to={`/documents/${edge.node.drupal_internal__nid}`}>{edge.node.title}
-                </Link>
-           </li>
+           <DocTeaser id={edge.node.drupal_internal__nid} title={edge.node.title} authors={edge.node.relationships?.field_author} summary={edge.node.field_summary?.value}/>
         ))}</ul>
         
    </section>
@@ -39,10 +42,9 @@ export default function Docs({ data }) {
    <div className="flex flex-row gap-2"><h3>Articles</h3><Link to={`#top`} className="text-xs">Go to top</Link></div>
               <ul>
             {articles.edges.map(edge => (
-           <li className="py-2"> 
-              <Link key={edge.node.drupal_internal__nid} to={`/documents/${edge.node.drupal_internal__nid}`}>{edge.node.title}
-                </Link>
-           </li>
+                                  <DocTeaser id={edge.node.drupal_internal__nid} title={edge.node.title} authorz={edge.node.relationships?.field_author} summary={edge.node.field_summary?.value}/>
+
+
         ))}</ul>
         
    </section>
@@ -50,10 +52,9 @@ export default function Docs({ data }) {
    <div className="flex flex-row gap-2"><h3>Essays</h3><Link to={`#top`} className="text-xs">Go to top</Link></div>
               <ul>
             {essays.edges.map(edge => (
-           <li className="py-2"> 
-              <Link key={edge.node.drupal_internal__nid} to={`/documents/${edge.node.drupal_internal__nid}`}>{edge.node.title}
-                </Link>
-           </li>
+                                 <DocTeaser id={edge.node.drupal_internal__nid} title={edge.node.title} authorz={edge.node.relationships?.field_author} summary={edge.node.field_summary?.value} />
+
+
         ))}</ul>
         
    </section>
@@ -61,10 +62,9 @@ export default function Docs({ data }) {
    <div className="flex flex-row gap-2"><h3>Interviews</h3><Link to={`#top`} className="text-xs">Go to top</Link></div>
               <ul>
             {interviews.edges.map(edge => (
-           <li className="py-2"> 
-              <Link key={edge.node.drupal_internal__nid} to={`/documents/${edge.node.drupal_internal__nid}`}>{edge.node.title}
-                </Link>
-           </li>
+                                 <DocTeaser id={edge.node.drupal_internal__nid} title={edge.node.title} authorz={edge.node.relationships?.field_author} summary={edge.node.field_summary?.value}/>
+
+
         ))}</ul>
         
    </section>
@@ -72,10 +72,9 @@ export default function Docs({ data }) {
    <div className="flex flex-row gap-2"><h3>Letters</h3><Link to={`#top`} className="text-xs">Go to top</Link></div>
               <ul>
             {letters.edges.map(edge => (
-           <li className="py-2"> 
-              <Link key={edge.node.drupal_internal__nid} to={`/documents/${edge.node.drupal_internal__nid}`}>{edge.node.title}
-                </Link>
-           </li>
+                                 <DocTeaser id={edge.node.drupal_internal__nid} title={edge.node.title} authorz={edge.node.relationships?.field_author} summary={edge.node.field_summary?.value}/>
+
+
         ))}</ul>
         
    </section>
@@ -83,25 +82,12 @@ export default function Docs({ data }) {
    <div className="flex flex-row gap-2"><h3>Reports</h3><Link to={`#top`} className="text-xs">Go to top</Link></div>
               <ul>
             {reports.edges.map(edge => (
-           <li className="py-2"> 
-              <Link key={edge.node.drupal_internal__nid} to={`/documents/${edge.node.drupal_internal__nid}`}>{edge.node.title}
-                </Link>
-           </li>
+                                 <DocTeaser id={edge.node.drupal_internal__nid} title={edge.node.title} authorz={edge.node.relationships?.field_author} summary={edge.node.field_summary?.value}/>
+
+
         ))}</ul>
         
    </section>
-{/* <section>
-
-          <div id="all">
-              <ul>
-            {allDocs.edges.map(edge => (
-           <li className="py-2"> 
-              <Link key={edge.node.drupal_internal__nid} to={`/documents/${edge.node.drupal_internal__nid}`}>{edge.node.title}
-                </Link>
-           </li>
-        ))}</ul>
-        </div>
-  </section> */}
 
   <section><Link to={`#top`}>Go to top</Link></section>
         
@@ -120,14 +106,6 @@ export default function Docs({ data }) {
 
 export const query = graphql`
   query {
-    allNodeDocuments {
-    edges {
-      node {
-        drupal_internal__nid
-        title
-      }
-    }
-  }
   speechz:  allNodeDocuments(
     filter: {relationships: {field_object_type: {name: {eq: "Speech"}}}}
   ) {
@@ -135,6 +113,16 @@ export const query = graphql`
       node {
         title
         drupal_internal__nid
+        field_summary {
+          value
+        }
+        relationships {
+          field_author {
+            ... on node__people {
+              title
+            }
+          }
+        }
       }
     }
   }
@@ -145,6 +133,16 @@ export const query = graphql`
       node {
         title
         drupal_internal__nid
+        field_summary {
+          value
+        }
+        relationships {
+          field_author {
+            ... on node__people {
+              title
+            }
+          }
+        }
       }
     }
   }
@@ -155,6 +153,16 @@ export const query = graphql`
       node {
         title
         drupal_internal__nid
+        field_summary {
+          value
+        }
+        relationships {
+          field_author {
+            ... on node__people {
+              title
+            }
+          }
+        }
       }
     }
   }
@@ -165,6 +173,16 @@ export const query = graphql`
       node {
         title
         drupal_internal__nid
+        field_summary {
+          value
+        }
+        relationships {
+          field_author {
+            ... on node__people {
+              title
+            }
+          }
+        }
       }
     }
   }
@@ -175,6 +193,16 @@ export const query = graphql`
       node {
         title
         drupal_internal__nid
+        field_summary {
+          value
+        }
+        relationships {
+          field_author {
+            ... on node__people {
+              title
+            }
+          }
+        }
       }
     }
   }
@@ -185,6 +213,16 @@ export const query = graphql`
       node {
         title
         drupal_internal__nid
+        field_summary {
+          value
+        }
+        relationships {
+          field_author {
+            ... on node__people {
+              title
+            }
+          }
+        }
       }
     }
   }
